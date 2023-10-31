@@ -1,15 +1,24 @@
 pipeline {
-    agent {
-        docker { image 'node:20.9.0-alpine3.18' }
-    }
-    environment {
-        TZ = 'Asia/Seoul'
-    }
+    agent any
     stages {
-        stage('Test') {
-	    steps {
-	        sh 'node --version'
-		sh 'echo $TZ'
+        /* "Build" and "Test" stages omitted */
+
+        stage('Deploy - Staging') {
+            steps {
+                sh './deploy staging'
+                sh './run-smoke-tests'
+            }
+        }
+
+        stage('Sanity check') {
+            steps {
+                input "Does the staging environment look ok?"
+            }
+        }
+
+        stage('Deploy - Production') {
+            steps {
+                sh './deploy production'
             }
         }
     }
