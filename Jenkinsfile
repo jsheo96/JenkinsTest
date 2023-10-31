@@ -1,15 +1,9 @@
-/* Requires the Docker Pipeline plugin */
 pipeline {
-    agent any
+    agent { docker { image 'node:20.9.0-alpine3.18 }
     stages {
-        stage('build') {
-            steps {
-                sh 'ls'
-		sh 'cat Jenkinsfile'
-		sh 'echo "hello world"'
-		sh 'pwd'
-		sh 'date'
-		sh 'tree -L 1'
+        stage('Test') {
+	    steps {
+	        sh 'node --version'
             }
         }
     }
