@@ -6,7 +6,6 @@ pipeline {
             steps {
                 sh 'ls'
 		sh 'cat Jenkinsfile'
-		sh 'll'
 		sh 'echo "hello world"'
 		sh 'pwd'
 		sh 'date'
